@@ -45,6 +45,8 @@ wget $CUDA_URL -O "/tmp/cuda.run"
 bash "/tmp/cuda.run" --silent --toolkit --override --toolkitpath $CUDA_PATH
 rm -f "/tmp/cuda.run"
 ln -s $CUDA_PATH "$(dirname $CUDA_PATH)/cuda/"
+# Link libcuda.so.1 stub
+ln -s $CUDA_PATH/lib64/stubs/libcuda.so $CUDA_PATH/lib64/stubs/libcuda.so.1
 
 # Install cuDNN .so files
 wget $CUDNN_URL -O "/tmp/cudnn.deb"

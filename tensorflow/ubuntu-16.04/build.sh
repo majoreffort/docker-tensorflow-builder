@@ -12,7 +12,7 @@ gcc --version
 # Install an appropriate Python environment
 conda create --yes -n tensorflow python==$PYTHON_VERSION
 source activate tensorflow
-conda install --yes numpy wheel bazel
+conda install --yes numpy wheel bazel=0.18.0
 conda install -c conda-forge keras-applications 
 
 # Compile TensorFlow
@@ -57,7 +57,7 @@ export TF_NEED_AWS=0
 
 # Compiler options
 export GCC_HOST_COMPILER_PATH=$(which gcc)
-export CC_OPT_FLAGS="-march=native"
+export CC_OPT_FLAGS="-march=westmere"
 
 if [ "$USE_GPU" -eq "1" ]; then
 	# Cuda parameters
@@ -71,6 +71,7 @@ if [ "$USE_GPU" -eq "1" ]; then
 
 	# Those two lines are important for the linking step.
 	export LD_LIBRARY_PATH="$CUDA_TOOLKIT_PATH/lib64:${LD_LIBRARY_PATH}"
+        export LD_LIBRARY_PATH="$CUDA_TOOLKIT_PATH/lib64/stubs:${LD_LIBRARY_PATH}"
 	ldconfig
 fi
 
@@ -80,6 +81,7 @@ fi
 if [ "$USE_GPU" -eq "1" ]; then
 
 	bazel build --config=opt \
+                        --copt=-march=westmere \
 	    		--config=cuda \
 	    		--action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
 	    		//tensorflow/tools/pip_package:build_pip_package
@@ -87,6 +89,7 @@ if [ "$USE_GPU" -eq "1" ]; then
 else
 
 	bazel build --config=opt \
+                            --copt=-march=westmere \
 			    --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
 			    //tensorflow/tools/pip_package:build_pip_package
 
