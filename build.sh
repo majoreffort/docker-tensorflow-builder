@@ -13,8 +13,8 @@ export CUDA_VERSION=9.0
 export CUDNN_VERSION=7.0
 
 # Start the compilation
-#docker-compose run tf
+docker-compose run tf
 
 # You can also do:
- docker-compose run tf bash
+#docker-compose run tf bash
 # bash build.sh
