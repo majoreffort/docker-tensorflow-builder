@@ -57,7 +57,7 @@ export TF_NEED_AWS=0
 
 # Compiler options
 export GCC_HOST_COMPILER_PATH=$(which gcc)
-export CC_OPT_FLAGS="-march=westmere"
+export CC_OPT_FLAGS="-march=westmere -mtune=westmere -D_GLIBCXX_USE_CXX11_ABI=0 "
 
 if [ "$USE_GPU" -eq "1" ]; then
 	# Cuda parameters
