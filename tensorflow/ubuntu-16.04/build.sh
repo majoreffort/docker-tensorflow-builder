@@ -12,7 +12,7 @@ gcc --version
 # Install an appropriate Python environment
 conda create --yes -n tensorflow python==$PYTHON_VERSION
 source activate tensorflow
-conda install --yes six numpy wheel mock bazel=0.18.0
+conda install --yes six numpy wheel mock bazel=0.15.0
 conda install --yes --no-deps -c conda-forge keras-applications keras-preprocessing
 
 # Compile TensorFlow
@@ -57,7 +57,7 @@ export TF_NEED_AWS=0
 
 # Compiler options
 export GCC_HOST_COMPILER_PATH=$(which gcc)
-export CC_OPT_FLAGS="-march=westmere -mtune=westmere -D_GLIBCXX_USE_CXX11_ABI=0 "
+export CC_OPT_FLAGS="-march=westmere -mtune=westmere -O3 -D_GLIBCXX_USE_CXX11_ABI=0 "
 
 if [ "$USE_GPU" -eq "1" ]; then
 	# Cuda parameters
